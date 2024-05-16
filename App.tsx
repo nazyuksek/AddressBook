@@ -16,10 +16,8 @@ const App = () => {
   };
   return (
     <NavigationContainer theme={CustomTheme}>
-      <SafeAreaProvider>
-        <Header />
-        <NavigationStack />
-      </SafeAreaProvider>
+      <Header />
+      <NavigationStack />
     </NavigationContainer>
   );
 };
