@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Pressable,
@@ -12,53 +12,52 @@ import Screens from '../../constants/Screens';
 import useScreenBottomDistance from '../../hooks/useScreenBottomDistance';
 import {scaleHeight, scaleWidth} from '../../utils/DimensionEditor';
 import AddressRow from './components/AddressRow';
-
-const MOCK_DATA = [
-  {
-    title: 'İkamet Adresim',
-    detail: 'Adres detayı, lorem ipsum dolor sit amet',
-    location: 'Üsküdar/İstanbul',
-  },
-  {
-    title: 'Adres Başlığı',
-    detail: 'Adres detayı, lorem ipsum dolor sit amet',
-    location: 'Üsküdar/İstanbul',
-  },
-  {
-    title: 'Adres Başlığı',
-    detail: 'Adres detayı, lorem ipsum dolor sit amet',
-    location: 'Üsküdar/İstanbul',
-  },
-];
+import {useSelector} from 'react-redux';
+import {AppDispatch, RootState, useAppDispatch} from '../../store/addressStore';
+import {fetchAddresses} from '../../store/reducer/addressListSlice';
 
 const AddressesListScreen = ({navigation}) => {
   const paddingBottom = useScreenBottomDistance();
+  const dispatch: AppDispatch = useAppDispatch();
+
+  const addressListState = useSelector((state: RootState) => state.addressList);
+
+  useEffect(() => {
+    dispatch(fetchAddresses());
+  }, [dispatch]);
 
   const containerStyle: ViewStyle = {
     paddingBottom,
   };
 
-  const onButtonPress = () => {
+  const onButtonPress = async () => {
     navigation.navigate(Screens.ADD_NEW_ADDRESS);
   };
 
   return (
     <View style={[styles.container, containerStyle]}>
-      <>
+      <View>
         <Text style={styles.title}>Kayıtlı Adresler</Text>
-        <FlatList
-          contentContainerStyle={styles.addressesList}
-          ItemSeparatorComponent={() => <ItemSeparatorComponent />}
-          data={MOCK_DATA}
-          renderItem={({item}) => (
-            <AddressRow
-              title={item.title}
-              detail={item.detail}
-              location={item.location}
-            />
-          )}
-        />
-      </>
+        {addressListState.addressList.length > 0 ? (
+          <FlatList
+            contentContainerStyle={styles.addressesList}
+            ItemSeparatorComponent={() => <ItemSeparatorComponent />}
+            data={addressListState.addressList}
+            renderItem={({item, index}) => (
+              <AddressRow
+                title={item.title}
+                detail={item.detail}
+                location={item.location}
+                index={index}
+              />
+            )}
+          />
+        ) : (
+          <Text style={styles.emptyStateText}>
+            Henüz kayıtlı bir adresiniz bulunamamaktadır.
+          </Text>
+        )}
+      </View>
       <Button label="Yeni Adres Ekle" onPress={onButtonPress} />
     </View>
   );
@@ -92,6 +91,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#EEF0F4',
     width: scaleWidth(288),
     alignSelf: 'center',
+  },
+  emptyStateText: {
+    color: '#3D2852',
+    fontSize: scaleHeight(14),
+    lineHeight: scaleHeight(18),
+    fontWeight: '500',
+    marginTop: scaleHeight(30),
   },
 });
 

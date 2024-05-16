@@ -6,6 +6,11 @@ import Button from '../../components/Button';
 import useScreenBottomDistance from '../../hooks/useScreenBottomDistance';
 import SuccessBottomSheet from './components/SuccessBottomSheet';
 import Screens from '../../constants/Screens';
+import {AppDispatch, useAppDispatch} from '../../store/addressStore';
+import {addNewAddress} from '../../services/AddressService';
+import {addAddress} from '../../store/reducer/addressListSlice';
+import {Address} from '../../types/types';
+import {useDispatch} from 'react-redux';
 
 type DropdownProps = {
   label: string;
@@ -24,6 +29,8 @@ const BOTTOM_SHEET_VISIBLE_TIMEOUT = 4000;
 
 const AddNewAddressScreen = ({navigation}) => {
   const paddingBottom = useScreenBottomDistance();
+
+  const dispatch = useDispatch();
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [addressTitle, setAddressTitle] = useState<string>(
@@ -54,7 +61,14 @@ const AddNewAddressScreen = ({navigation}) => {
     setIsButtonDisabled(true);
   }, [addressTitle, addressDetail, selectedCity]);
 
-  const onSaveButtonPress = () => {
+  const onSaveButtonPress = async () => {
+    const address: Address = {
+      title: addressTitle,
+      detail: addressDetail,
+      location: selectedCity ? selectedCity.label : '',
+    };
+    await addNewAddress(address);
+    dispatch(addAddress(address));
     setIsModalVisible(true);
     setTimeout(() => {
       setIsModalVisible(false);

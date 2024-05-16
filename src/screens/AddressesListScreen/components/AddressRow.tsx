@@ -8,13 +8,14 @@ type AddressRowProps = {
   title: string;
   detail: string;
   location: string;
+  index: number;
 };
 
 const AddressRow: React.FC<AddressRowProps> = props => {
-  const {title, detail, location} = props;
+  const {title, detail, location, index} = props;
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} key={index}>
       <View style={styles.addressContainer}>
         <View style={styles.locationIcon}>
           <Location color="#450D87" />
