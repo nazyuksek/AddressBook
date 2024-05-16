@@ -1,19 +1,39 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {scaleHeight, scaleWidth} from '../utils/DimensionEditor';
 
 type ButtonProps = {
   label: string;
+  disabled: boolean;
   onPress: () => void;
 };
 
 const Button: React.FC<ButtonProps> = props => {
-  const {label, onPress} = props;
+  const {label, disabled, onPress} = props;
+
+  const backgroundStyle: ViewStyle = {
+    backgroundColor: disabled ? '#EEF0F4' : '#019693',
+  };
+
+  const textStyle: TextStyle = {
+    color: disabled ? '#AAB5C1' : '#FFFFFF',
+  };
+
   return (
     <View>
       <View style={styles.line} />
-      <Pressable style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonText}>{label}</Text>
+      <Pressable
+        style={[styles.button, backgroundStyle]}
+        onPress={onPress}
+        disabled={disabled}>
+        <Text style={[styles.buttonText, textStyle]}>{label}</Text>
       </Pressable>
     </View>
   );
@@ -22,7 +42,6 @@ const Button: React.FC<ButtonProps> = props => {
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    backgroundColor: '#019693',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: scaleHeight(18),
@@ -30,7 +49,6 @@ const styles = StyleSheet.create({
     marginTop: scaleHeight(15),
   },
   buttonText: {
-    color: '#FFFFFF',
     fontWeight: '500',
     fontSize: scaleHeight(16),
     lineHeight: scaleHeight(20),
