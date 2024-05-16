@@ -1,10 +1,10 @@
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Header from './src/components/Header';
 import NavigationStack from './src/navigation/NavigationStack';
-import AddressesListScreen from './src/screens/AddressesListScreen/AddressesListScreen';
+import {Provider as AddressProvider} from 'react-redux';
+import addressStore from './src/store/addressStore';
 
 const App = () => {
   const CustomTheme = {
@@ -14,11 +14,14 @@ const App = () => {
       background: 'transparent',
     },
   };
+
   return (
-    <NavigationContainer theme={CustomTheme}>
-      <Header />
-      <NavigationStack />
-    </NavigationContainer>
+    <AddressProvider store={addressStore}>
+      <NavigationContainer theme={CustomTheme}>
+        <Header />
+        <NavigationStack />
+      </NavigationContainer>
+    </AddressProvider>
   );
 };
 
