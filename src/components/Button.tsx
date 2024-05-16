@@ -11,7 +11,7 @@ import {scaleHeight, scaleWidth} from '../utils/DimensionEditor';
 
 type ButtonProps = {
   label: string;
-  disabled: boolean;
+  disabled?: boolean;
   onPress: () => void;
 };
 
