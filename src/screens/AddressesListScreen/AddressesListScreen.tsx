@@ -7,6 +7,8 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+import Button from '../../components/Button';
+import Screens from '../../constants/Screens';
 import useScreenBottomDistance from '../../hooks/useScreenBottomDistance';
 import {scaleHeight, scaleWidth} from '../../utils/DimensionEditor';
 import AddressRow from './components/AddressRow';
@@ -29,14 +31,16 @@ const MOCK_DATA = [
   },
 ];
 
-const AddressesListScreen = () => {
+const AddressesListScreen = ({navigation}) => {
   const paddingBottom = useScreenBottomDistance();
 
   const containerStyle: ViewStyle = {
     paddingBottom,
   };
 
-  const onButtonPress = () => {};
+  const onButtonPress = () => {
+    navigation.navigate(Screens.ADD_NEW_ADDRESS);
+  };
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -55,12 +59,7 @@ const AddressesListScreen = () => {
           )}
         />
       </>
-      <>
-        <View style={styles.line} />
-        <Pressable style={styles.button} onPress={onButtonPress}>
-          <Text style={styles.buttonText}>Yeni Adres Ekle</Text>
-        </Pressable>
-      </>
+      <Button label="Yeni Adres Ekle" onPress={onButtonPress} />
     </View>
   );
 };
@@ -93,25 +92,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#EEF0F4',
     width: scaleWidth(288),
     alignSelf: 'center',
-  },
-  button: {
-    width: '100%',
-    backgroundColor: '#019693',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: scaleHeight(18),
-    borderRadius: scaleWidth(8),
-    marginTop: scaleHeight(15),
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontWeight: '500',
-    fontSize: scaleHeight(16),
-    lineHeight: scaleHeight(20),
-  },
-  line: {
-    height: 1,
-    backgroundColor: '#EEF0F4',
   },
 });
 
