@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, View, ViewStyle} from 'react-native';
 import {scaleHeight, scaleWidth} from '../../utils/DimensionEditor';
 import {Dropdown} from 'react-native-element-dropdown';
 import Button from '../../components/Button';
 import useScreenBottomDistance from '../../hooks/useScreenBottomDistance';
+import SuccessBottomSheet from './components/SuccessBottomSheet';
+import Screens from '../../constants/Screens';
 
 type DropdownProps = {
   label: string;
@@ -18,24 +20,67 @@ const data: DropdownProps[] = [
 
 const DEFAULT_ADDRESS_TITLE = 'Ev';
 const DEFAULT_ADDRESS_DETAIL = 'Param ofis';
+const BOTTOM_SHEET_VISIBLE_TIMEOUT = 4000;
 
 const AddNewAddressScreen = ({navigation}) => {
   const paddingBottom = useScreenBottomDistance();
 
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [addressTitle, setAddressTitle] = useState<string>(
+    DEFAULT_ADDRESS_TITLE,
+  );
+  const [addressDetail, setAddressDetail] = useState<string>(
+    DEFAULT_ADDRESS_DETAIL,
+  );
   const [selectedCity, setSelectedCity] = useState<DropdownProps | undefined>();
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   const containerStyle: ViewStyle = {
     paddingBottom,
   };
 
+  useEffect(() => {
+    if (!addressTitle || !addressDetail) {
+      return;
+    }
+    if (
+      addressTitle?.length >= 2 &&
+      addressDetail?.length >= 2 &&
+      selectedCity
+    ) {
+      setIsButtonDisabled(false);
+      return;
+    }
+    setIsButtonDisabled(true);
+  }, [addressTitle, addressDetail, selectedCity]);
+
+  const onSaveButtonPress = () => {
+    setIsModalVisible(true);
+    setTimeout(() => {
+      setIsModalVisible(false);
+      navigation.navigate(Screens.ADDRESSES_LIST);
+    }, BOTTOM_SHEET_VISIBLE_TIMEOUT);
+  };
+
+  const onAddressTitleChange = (text: string) => {
+    setAddressTitle(text);
+  };
+
+  const onAddressDetailChange = (text: string) => {
+    setAddressDetail(text);
+  };
+
   return (
     <View style={[styles.container, containerStyle]}>
+      <SuccessBottomSheet isVisible={isModalVisible} />
       <View>
         <View style={styles.inputAndLabel}>
           <Text style={styles.inputLabel}>Adres başlığı (Ev, işyeri vs.)</Text>
           <TextInput
             style={styles.textInput}
             defaultValue={DEFAULT_ADDRESS_TITLE}
+            onChangeText={onAddressTitleChange}
+            value={addressTitle}
           />
         </View>
         <View style={styles.inputAndLabel}>
@@ -61,10 +106,16 @@ const AddNewAddressScreen = ({navigation}) => {
           <TextInput
             style={styles.textInput}
             defaultValue={DEFAULT_ADDRESS_DETAIL}
+            onChangeText={onAddressDetailChange}
+            value={addressDetail}
           />
         </View>
       </View>
-      <Button label="Kaydet" onPress={() => {}} />
+      <Button
+        label="Kaydet"
+        onPress={onSaveButtonPress}
+        disabled={isButtonDisabled}
+      />
     </View>
   );
 };
