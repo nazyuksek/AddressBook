@@ -1,18 +1,22 @@
-import React from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {Pressable, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import ArrowLeft from '../assets/svgs/ArrowLeft';
+import {STATUS_BAR_HEIGHT} from '../constants/constants';
 import {scaleHeight, scaleWidth, SCREEN_WIDTH} from '../utils/DimensionEditor';
-
-const STATUS_BAR_HEIGHT = scaleHeight(47);
+import {useNavigation} from '@react-navigation/native';
 
 const Header = () => {
+  const navigation = useNavigation();
+
   const absoluteViewStyle: ViewStyle = {
     top: STATUS_BAR_HEIGHT,
   };
 
   const onBackButtonPressed = () => {
-    console.log('back button pressed');
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    }
   };
 
   return (
@@ -23,15 +27,15 @@ const Header = () => {
       />
       <View style={[styles.absoluteView, absoluteViewStyle]}>
         <View style={styles.buttonAndHeadlineContainer}>
+          <View style={styles.headlineContainer}>
+            <Text style={styles.headline}>Adreslerim</Text>
+          </View>
           <Pressable
             onPress={onBackButtonPressed}
             hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
             style={styles.backButton}>
             <ArrowLeft color="#C2BBCF" />
           </Pressable>
-          <View style={styles.headlineContainer}>
-            <Text style={styles.headline}>Adreslerim</Text>
-          </View>
         </View>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Adres Bilgilerin</Text>
