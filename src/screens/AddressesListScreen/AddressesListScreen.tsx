@@ -41,6 +41,7 @@ const AddressesListScreen = ({navigation}) => {
         {addressListState.addressList.length > 0 ? (
           <FlatList
             contentContainerStyle={styles.addressesList}
+            style={styles.addressesListStyle}
             ItemSeparatorComponent={() => <ItemSeparatorComponent />}
             data={addressListState.addressList}
             renderItem={({item, index}) => (
@@ -79,12 +80,15 @@ const styles = StyleSheet.create({
     fontSize: scaleHeight(14),
     lineHeight: scaleHeight(18),
     fontWeight: '500',
+    paddingBottom: scaleHeight(10),
   },
   addressesList: {
-    marginTop: scaleHeight(10),
     borderWidth: 1,
     borderColor: '#EEF0F4',
     borderRadius: scaleWidth(8),
+  },
+  addressesListStyle: {
+    height: scaleHeight(450),
   },
   separator: {
     height: 1,
