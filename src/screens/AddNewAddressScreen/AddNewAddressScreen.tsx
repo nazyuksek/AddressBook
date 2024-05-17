@@ -9,19 +9,9 @@ import Screens from '../../constants/Screens';
 import {AppDispatch, useAppDispatch} from '../../store/addressStore';
 import {addNewAddress} from '../../services/AddressService';
 import {addAddress} from '../../store/reducer/addressListSlice';
-import {Address} from '../../types/types';
+import {Address, City} from '../../types/types';
 import {useDispatch} from 'react-redux';
-
-type DropdownProps = {
-  label: string;
-  value: string;
-};
-
-const data: DropdownProps[] = [
-  {label: 'İstanbul', value: '1'},
-  {label: 'Kocaeli', value: '2'},
-  {label: 'Bursa', value: '3'},
-];
+import {getCities} from '../../services/CitiesService';
 
 const DEFAULT_ADDRESS_TITLE = 'Ev';
 const DEFAULT_ADDRESS_DETAIL = 'Param ofis';
@@ -39,8 +29,18 @@ const AddNewAddressScreen = ({navigation}) => {
   const [addressDetail, setAddressDetail] = useState<string>(
     DEFAULT_ADDRESS_DETAIL,
   );
-  const [selectedCity, setSelectedCity] = useState<DropdownProps | undefined>();
+  const [selectedCity, setSelectedCity] = useState<City | undefined>();
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+
+  const [cities, setCities] = useState<City[] | null>(null);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      const citiesData = await getCities();
+      setCities(citiesData);
+    };
+    fetchCities();
+  });
 
   const containerStyle: ViewStyle = {
     paddingBottom,
@@ -65,7 +65,7 @@ const AddNewAddressScreen = ({navigation}) => {
     const address: Address = {
       title: addressTitle,
       detail: addressDetail,
-      location: selectedCity ? selectedCity.label : '',
+      location: selectedCity ? selectedCity.cityName : '',
     };
     await addNewAddress(address);
     dispatch(addAddress(address));
@@ -100,15 +100,15 @@ const AddNewAddressScreen = ({navigation}) => {
         <View style={styles.inputAndLabel}>
           <Text style={styles.inputLabel}>İl</Text>
           <Dropdown
-            style={[styles.dropdown]}
+            style={styles.dropdown}
             placeholderStyle={styles.dropdownTextStyle}
             selectedTextStyle={styles.dropdownTextStyle}
-            data={data}
+            data={cities ?? []}
             maxHeight={300}
-            labelField="label"
-            valueField="value"
+            labelField="cityName"
+            valueField="id"
             placeholder="İl"
-            value={selectedCity ? selectedCity.value : ''}
+            value={selectedCity ? selectedCity : ''}
             onChange={selectedCity => {
               setSelectedCity(selectedCity);
             }}
