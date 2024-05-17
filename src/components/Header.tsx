@@ -48,7 +48,7 @@ const Header = () => {
 const styles = StyleSheet.create({
   headerGradient: {
     width: SCREEN_WIDTH,
-    height: scaleWidth(180),
+    height: scaleHeight(180),
   },
   absoluteView: {
     position: 'absolute',

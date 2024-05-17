@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TextInput, View, ViewStyle} from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {scaleHeight, scaleWidth} from '../../utils/DimensionEditor';
 import {Dropdown} from 'react-native-element-dropdown';
 import Button from '../../components/Button';
@@ -163,7 +170,7 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     fontSize: scaleHeight(14),
     lineHeight: scaleHeight(18),
-    top: scaleHeight(16),
+    top: Platform.OS === 'android' ? scaleHeight(8) : scaleHeight(16),
   },
   dropdown: {
     paddingHorizontal: scaleWidth(16),
