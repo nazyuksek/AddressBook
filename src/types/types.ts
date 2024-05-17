@@ -3,3 +3,8 @@ export type Address = {
   detail: string;
   location: string;
 };
+
+export type City = {
+  cityName: string;
+  id: number;
+};
