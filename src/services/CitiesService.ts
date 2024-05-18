@@ -11,6 +11,7 @@ export const getCities = async (): Promise<City[] | null> => {
     const cities = await response.json();
     return cities;
   } catch (error) {
+    console.log('CitiesService getCities error: ' + error);
     return null;
   }
 };

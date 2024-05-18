@@ -34,6 +34,10 @@ const AddressesListScreen = ({navigation}) => {
     navigation.navigate(Screens.ADD_NEW_ADDRESS);
   };
 
+  if (addressListState.error) {
+    return <Text style={styles.emptyStateText}>{addressListState.error}</Text>;
+  }
+
   return (
     <View style={[styles.container, containerStyle]}>
       <View>

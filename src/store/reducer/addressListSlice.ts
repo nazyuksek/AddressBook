@@ -14,8 +14,11 @@ const initialState: AddressesListState = {
 
 export const fetchAddresses = createAsyncThunk<Address[] | null>(
   'addressList/fetchAddresses',
-  async () => {
+  async (_, thunkAPI) => {
     const response = await getAddresses();
+    if (!response) {
+      thunkAPI.rejectWithValue('Adresler listelenemiyor.');
+    }
     return response;
   },
 );
@@ -32,7 +35,11 @@ const addressListSlice = createSlice({
     builder.addCase(fetchAddresses.fulfilled, (state, action) => {
       if (action.payload) {
         state.addressList = action.payload;
+        state.error = false;
       }
+    });
+    builder.addCase(fetchAddresses.rejected, state => {
+      state.error = true;
     });
   },
 });

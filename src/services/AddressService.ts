@@ -11,6 +11,7 @@ export const getAddresses = async (): Promise<Address[] | null> => {
     const addressList = await response.json();
     return addressList;
   } catch (error) {
+    console.log('AddressListService getAddresses error: ' + error);
     return null;
   }
 };
@@ -32,7 +33,7 @@ export const addNewAddress = async (
     );
     return response.json();
   } catch (error) {
-    console.log(error);
+    console.log('AddressListService addNewAddress error: ' + error);
     return null;
   }
 };

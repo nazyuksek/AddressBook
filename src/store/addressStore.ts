@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import addressListSlice from './reducer/addressListSlice';
 import {useDispatch} from 'react-redux';
+import addressListSlice from './reducer/addressListSlice';
 
 const rootReducer = combineReducers({
   addressList: addressListSlice,
