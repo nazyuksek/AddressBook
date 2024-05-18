@@ -19,6 +19,7 @@ import {addAddress} from '../../store/reducer/addressListSlice';
 import {Address, City} from '../../types/types';
 import {useDispatch} from 'react-redux';
 import {getCities} from '../../services/CitiesService';
+import CustomTextInput from './components/CustomTextInput';
 
 const DEFAULT_ADDRESS_TITLE = 'Ev';
 const DEFAULT_ADDRESS_DETAIL = 'Param ofis';
@@ -95,15 +96,11 @@ const AddNewAddressScreen = ({navigation}) => {
     <View style={[styles.container, containerStyle]}>
       <SuccessBottomSheet isVisible={isModalVisible} />
       <View>
-        <View style={styles.inputAndLabel}>
-          <Text style={styles.inputLabel}>Adres başlığı (Ev, işyeri vs.)</Text>
-          <TextInput
-            style={styles.textInput}
-            defaultValue={DEFAULT_ADDRESS_TITLE}
-            onChangeText={onAddressTitleChange}
-            value={addressTitle}
-          />
-        </View>
+        <CustomTextInput
+          defaultValue={DEFAULT_ADDRESS_TITLE}
+          onChange={onAddressTitleChange}
+          value={addressTitle}
+        />
         <View style={styles.inputAndLabel}>
           <Text style={styles.inputLabel}>İl</Text>
           <Dropdown
@@ -122,15 +119,11 @@ const AddNewAddressScreen = ({navigation}) => {
             iconStyle={styles.dropdownIcon}
           />
         </View>
-        <View style={styles.inputAndLabel}>
-          <Text style={styles.inputLabel}>Adres detayı</Text>
-          <TextInput
-            style={styles.textInput}
-            defaultValue={DEFAULT_ADDRESS_DETAIL}
-            onChangeText={onAddressDetailChange}
-            value={addressDetail}
-          />
-        </View>
+        <CustomTextInput
+          defaultValue={DEFAULT_ADDRESS_DETAIL}
+          onChange={onAddressDetailChange}
+          value={addressDetail}
+        />
       </View>
       <Button
         label="Kaydet"
@@ -164,14 +157,7 @@ const styles = StyleSheet.create({
     fontSize: scaleHeight(11),
     fontWeight: '500',
   },
-  textInput: {
-    paddingHorizontal: scaleWidth(16),
-    color: '#3D2852',
-    fontWeight: '300',
-    fontSize: scaleHeight(14),
-    lineHeight: scaleHeight(18),
-    top: Platform.OS === 'android' ? scaleHeight(8) : scaleHeight(16),
-  },
+
   dropdown: {
     paddingHorizontal: scaleWidth(16),
     borderRadius: scaleWidth(8),

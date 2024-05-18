@@ -44,6 +44,7 @@ const AddressesListScreen = ({navigation}) => {
             style={styles.addressesListStyle}
             ItemSeparatorComponent={() => <ItemSeparatorComponent />}
             data={addressListState.addressList}
+            keyExtractor={() => Math.random().toString()}
             renderItem={({item, index}) => (
               <AddressRow
                 title={item.title}
