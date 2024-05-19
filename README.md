@@ -3,8 +3,6 @@
 
 ## Step 1: Start the Metro Server
 
-First, start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
 ```bash
 yarn start
 ```
