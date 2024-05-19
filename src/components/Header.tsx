@@ -1,13 +1,23 @@
 import React, {useEffect, useMemo} from 'react';
-import {Pressable, StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import ArrowLeft from '../assets/svgs/ArrowLeft';
 import {STATUS_BAR_HEIGHT} from '../constants/constants';
 import {scaleHeight, scaleWidth, SCREEN_WIDTH} from '../utils/DimensionEditor';
 import {useNavigation} from '@react-navigation/native';
+import i18next from 'i18next';
+import {useTranslation} from 'react-i18next';
 
 const Header = () => {
   const navigation = useNavigation();
+  const {t} = useTranslation();
 
   const absoluteViewStyle: ViewStyle = {
     top: STATUS_BAR_HEIGHT,
@@ -26,9 +36,11 @@ const Header = () => {
         colors={['#220C45', '#440E85']}
       />
       <View style={[styles.absoluteView, absoluteViewStyle]}>
+        <Button onPress={() => i18next.changeLanguage('en')} title="en" />
+        <Button onPress={() => i18next.changeLanguage('tr')} title="tr" />
         <View style={styles.buttonAndHeadlineContainer}>
           <View style={styles.headlineContainer}>
-            <Text style={styles.headline}>Adreslerim</Text>
+            <Text style={styles.headline}>{t('my_addresses')}</Text>
           </View>
           <Pressable
             onPress={onBackButtonPressed}
