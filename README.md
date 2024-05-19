@@ -7,7 +7,14 @@
 yarn start
 ```
 
-## Step 2: Start Application
+## Step 2: Install dependencies
+
+```bash
+yarn install
+yarn pods
+```
+
+## Step 3: Start Application
 
 ### For Android
 
