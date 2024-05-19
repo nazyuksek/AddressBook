@@ -1,6 +1,5 @@
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import Header from '../components/Header/Header';
 import NavigationStack from './NavigationStack';
 
 const RootNavigation = () => {
