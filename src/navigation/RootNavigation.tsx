@@ -8,7 +8,7 @@ const RootNavigation = () => {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: 'transparent',
+      background: 'white',
     },
   };
   return (
