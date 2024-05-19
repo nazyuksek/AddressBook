@@ -4,7 +4,6 @@ import {scaleHeight, scaleWidth} from '../../utils/DimensionEditor';
 import {Dropdown} from 'react-native-element-dropdown';
 import Button from '../../components/Button';
 import useScreenBottomDistance from '../../hooks/useScreenBottomDistance';
-import SuccessBottomSheet from './components/SuccessBottomSheet';
 import Screens from '../../constants/Screens';
 import {addNewAddress} from '../../services/AddressService';
 import {Address, City} from '../../types/types';
@@ -15,8 +14,6 @@ import {addAddress} from '../../store/reducers/addressListSlice';
 import {useTranslation} from 'react-i18next';
 import {RootState} from '../../store/reducers/rootReducer';
 
-const BOTTOM_SHEET_VISIBLE_TIMEOUT = 4000;
-
 const AddNewAddressScreen = ({navigation}) => {
   const paddingBottom = useScreenBottomDistance();
   const {t} = useTranslation();
@@ -25,7 +22,6 @@ const AddNewAddressScreen = ({navigation}) => {
   const DEFAULT_ADDRESS_TITLE = t('title_placeholder');
   const DEFAULT_ADDRESS_DETAIL = t('detail_placeholder');
 
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [addressTitle, setAddressTitle] = useState<string>(
     DEFAULT_ADDRESS_TITLE,
   );
@@ -79,11 +75,7 @@ const AddNewAddressScreen = ({navigation}) => {
     };
     await addNewAddress(address);
     dispatch(addAddress(address));
-    setIsModalVisible(true);
-    setTimeout(() => {
-      setIsModalVisible(false);
-      navigation.navigate(Screens.ADDRESSES_LIST);
-    }, BOTTOM_SHEET_VISIBLE_TIMEOUT);
+    navigation.navigate(Screens.SUCCESS_MODAL);
   };
 
   const onAddressTitleChange = (text: string) => {
@@ -96,7 +88,6 @@ const AddNewAddressScreen = ({navigation}) => {
 
   return (
     <View style={[styles.container, containerStyle]}>
-      <SuccessBottomSheet isVisible={isModalVisible} />
       <View>
         <CustomTextInput
           title={t('address_title')}
@@ -161,7 +152,6 @@ const styles = StyleSheet.create({
     fontSize: scaleHeight(11),
     fontWeight: '500',
   },
-
   dropdown: {
     paddingHorizontal: scaleWidth(16),
     borderRadius: scaleWidth(8),

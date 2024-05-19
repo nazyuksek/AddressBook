@@ -13,7 +13,6 @@ const RootNavigation = () => {
   };
   return (
     <NavigationContainer theme={CustomTheme}>
-      <Header />
       <NavigationStack />
     </NavigationContainer>
   );
