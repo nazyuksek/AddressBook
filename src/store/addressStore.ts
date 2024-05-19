@@ -1,17 +1,12 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {useDispatch} from 'react-redux';
-import addressListSlice from './reducer/addressListSlice';
-
-const rootReducer = combineReducers({
-  addressList: addressListSlice,
-});
-
-export type RootState = ReturnType<typeof rootReducer>;
+import addressListReducer from './reducers/addressListSlice';
 
 const addressStore = configureStore({
-  reducer: rootReducer,
+  reducer: addressListReducer,
 });
 
-export default addressStore;
 export type AppDispatch = typeof addressStore.dispatch;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
+
+export default addressStore;

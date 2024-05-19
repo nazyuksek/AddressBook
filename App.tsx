@@ -1,13 +1,16 @@
 import React from 'react';
 import {Provider as AddressProvider} from 'react-redux';
-import addressStore from './src/store/addressStore';
+import {Provider as LanguageProvider} from 'react-redux';
 import RootNavigation from './src/navigation/RootNavigation';
+import store from './src/store/store';
 
 const App = () => {
   return (
-    <AddressProvider store={addressStore}>
-      <RootNavigation />
-    </AddressProvider>
+    <LanguageProvider store={store}>
+      <AddressProvider store={store}>
+        <RootNavigation />
+      </AddressProvider>
+    </LanguageProvider>
   );
 };
 

@@ -15,11 +15,11 @@ import SuccessBottomSheet from './components/SuccessBottomSheet';
 import Screens from '../../constants/Screens';
 import {AppDispatch, useAppDispatch} from '../../store/addressStore';
 import {addNewAddress} from '../../services/AddressService';
-import {addAddress} from '../../store/reducer/addressListSlice';
 import {Address, City} from '../../types/types';
 import {useDispatch} from 'react-redux';
 import {getCities} from '../../services/CitiesService';
 import CustomTextInput from './components/CustomTextInput';
+import {addAddress} from '../../store/reducers/addressListSlice';
 
 const DEFAULT_ADDRESS_TITLE = 'Ev';
 const DEFAULT_ADDRESS_DETAIL = 'Param ofis';
@@ -48,7 +48,7 @@ const AddNewAddressScreen = ({navigation}) => {
       setCities(citiesData);
     };
     fetchCities();
-  });
+  }, []);
 
   const containerStyle: ViewStyle = {
     paddingBottom,

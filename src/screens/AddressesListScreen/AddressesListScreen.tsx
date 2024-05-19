@@ -13,8 +13,9 @@ import useScreenBottomDistance from '../../hooks/useScreenBottomDistance';
 import {scaleHeight, scaleWidth} from '../../utils/DimensionEditor';
 import AddressRow from './components/AddressRow';
 import {useSelector} from 'react-redux';
-import {AppDispatch, RootState, useAppDispatch} from '../../store/addressStore';
-import {fetchAddresses} from '../../store/reducer/addressListSlice';
+import {fetchAddresses} from '../../store/reducers/addressListSlice';
+import {RootState} from '../../store/reducers/rootReducer';
+import {AppDispatch, useAppDispatch} from '../../store/addressStore';
 
 const AddressesListScreen = ({navigation}) => {
   const paddingBottom = useScreenBottomDistance();
