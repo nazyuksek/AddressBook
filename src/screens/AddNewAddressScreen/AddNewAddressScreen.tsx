@@ -1,34 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {StyleSheet, Text, View, ViewStyle} from 'react-native';
 import {scaleHeight, scaleWidth} from '../../utils/DimensionEditor';
 import {Dropdown} from 'react-native-element-dropdown';
 import Button from '../../components/Button';
 import useScreenBottomDistance from '../../hooks/useScreenBottomDistance';
 import SuccessBottomSheet from './components/SuccessBottomSheet';
 import Screens from '../../constants/Screens';
-import {AppDispatch, useAppDispatch} from '../../store/addressStore';
 import {addNewAddress} from '../../services/AddressService';
 import {Address, City} from '../../types/types';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getCities} from '../../services/CitiesService';
 import CustomTextInput from './components/CustomTextInput';
 import {addAddress} from '../../store/reducers/addressListSlice';
+import {useTranslation} from 'react-i18next';
+import {RootState} from '../../store/reducers/rootReducer';
 
-const DEFAULT_ADDRESS_TITLE = 'Ev';
-const DEFAULT_ADDRESS_DETAIL = 'Param ofis';
 const BOTTOM_SHEET_VISIBLE_TIMEOUT = 4000;
 
 const AddNewAddressScreen = ({navigation}) => {
   const paddingBottom = useScreenBottomDistance();
-
+  const {t} = useTranslation();
   const dispatch = useDispatch();
+
+  const DEFAULT_ADDRESS_TITLE = t('title_placeholder');
+  const DEFAULT_ADDRESS_DETAIL = t('detail_placeholder');
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [addressTitle, setAddressTitle] = useState<string>(
@@ -41,6 +36,13 @@ const AddNewAddressScreen = ({navigation}) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   const [cities, setCities] = useState<City[] | null>(null);
+
+  const languageState = useSelector((state: RootState) => state.language);
+
+  useEffect(() => {
+    setAddressTitle(t('title_placeholder'));
+    setAddressDetail(t('detail_placeholder'));
+  }, [languageState.language]);
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -97,12 +99,13 @@ const AddNewAddressScreen = ({navigation}) => {
       <SuccessBottomSheet isVisible={isModalVisible} />
       <View>
         <CustomTextInput
+          title={t('address_title')}
           defaultValue={DEFAULT_ADDRESS_TITLE}
           onChange={onAddressTitleChange}
           value={addressTitle}
         />
         <View style={styles.inputAndLabel}>
-          <Text style={styles.inputLabel}>İl</Text>
+          <Text style={styles.inputLabel}>{t('city')}</Text>
           <Dropdown
             style={styles.dropdown}
             placeholderStyle={styles.dropdownTextStyle}
@@ -111,7 +114,7 @@ const AddNewAddressScreen = ({navigation}) => {
             maxHeight={300}
             labelField="cityName"
             valueField="id"
-            placeholder="İl"
+            placeholder={t('select_item')}
             value={selectedCity ? selectedCity : ''}
             onChange={selectedCity => {
               setSelectedCity(selectedCity);
@@ -120,13 +123,14 @@ const AddNewAddressScreen = ({navigation}) => {
           />
         </View>
         <CustomTextInput
+          title={t('address_detail')}
           defaultValue={DEFAULT_ADDRESS_DETAIL}
           onChange={onAddressDetailChange}
           value={addressDetail}
         />
       </View>
       <Button
-        label="Kaydet"
+        label={t('save')}
         onPress={onSaveButtonPress}
         disabled={isButtonDisabled}
       />

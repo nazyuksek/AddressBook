@@ -8,12 +8,21 @@ import {
   ViewStyle,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import ArrowLeft from '../assets/svgs/ArrowLeft';
-import {STATUS_BAR_HEIGHT} from '../constants/constants';
-import {scaleHeight, scaleWidth, SCREEN_WIDTH} from '../utils/DimensionEditor';
+import ArrowLeft from '../../assets/svgs/ArrowLeft';
+import {STATUS_BAR_HEIGHT} from '../../constants/constants';
+import {
+  scaleHeight,
+  scaleWidth,
+  SCREEN_WIDTH,
+} from '../../utils/DimensionEditor';
 import {useNavigation} from '@react-navigation/native';
 import i18next from 'i18next';
 import {useTranslation} from 'react-i18next';
+import {useDispatch, useSelector} from 'react-redux';
+import {LanguageTag} from '../../types/types';
+import {changeLanguage} from '../../store/reducers/languageSlice';
+import {RootState} from '../../store/reducers/rootReducer';
+import LanguageSelection from './components/LanguageSelection';
 
 const Header = () => {
   const navigation = useNavigation();
@@ -36,8 +45,6 @@ const Header = () => {
         colors={['#220C45', '#440E85']}
       />
       <View style={[styles.absoluteView, absoluteViewStyle]}>
-        <Button onPress={() => i18next.changeLanguage('en')} title="en" />
-        <Button onPress={() => i18next.changeLanguage('tr')} title="tr" />
         <View style={styles.buttonAndHeadlineContainer}>
           <View style={styles.headlineContainer}>
             <Text style={styles.headline}>{t('my_addresses')}</Text>
@@ -48,9 +55,10 @@ const Header = () => {
             style={styles.backButton}>
             <ArrowLeft color="#C2BBCF" />
           </Pressable>
+          <LanguageSelection style={styles.languageContainer} />
         </View>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Adres Bilgilerin</Text>
+          <Text style={styles.title}>{t('address_info')}</Text>
         </View>
       </View>
     </>
@@ -96,6 +104,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: scaleHeight(20),
     lineHeight: scaleHeight(25),
+  },
+  languageContainer: {
+    position: 'absolute',
+    top: scaleHeight(16),
+    right: scaleWidth(20),
   },
 });
 

@@ -8,3 +8,7 @@ export type City = {
   cityName: string;
   id: number;
 };
+
+const availableLanguages = ['en', 'tr'];
+
+export type LanguageTag = (typeof availableLanguages)[number];

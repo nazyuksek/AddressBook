@@ -8,15 +8,16 @@ import {
   SCREEN_WIDTH,
 } from '../../../utils/DimensionEditor';
 import useScreenBottomDistance from '../../../hooks/useScreenBottomDistance';
+import {useTranslation} from 'react-i18next';
 
 export type ModalRefProps = {
   isVisible: boolean;
-  onModalHide?: () => void;
 };
 
 const SuccessBottomSheet: React.FC<ModalRefProps> = props => {
-  const {isVisible, onModalHide} = props;
+  const {isVisible} = props;
   const paddingBottom = useScreenBottomDistance();
+  const {t} = useTranslation();
 
   const padding: ViewStyle = {
     paddingBottom: scaleHeight(32) + paddingBottom,
@@ -33,7 +34,7 @@ const SuccessBottomSheet: React.FC<ModalRefProps> = props => {
         <View style={styles.circleContainer}>
           <SuccessCircle color="#019693" />
         </View>
-        <Text style={styles.modalText}>Adresin başarıyla kaydedildi!</Text>
+        <Text style={styles.modalText}>{t('successfully_saved')}</Text>
       </View>
     </Modal>
   );

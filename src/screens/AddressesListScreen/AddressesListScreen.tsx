@@ -16,10 +16,12 @@ import {useSelector} from 'react-redux';
 import {fetchAddresses} from '../../store/reducers/addressListSlice';
 import {RootState} from '../../store/reducers/rootReducer';
 import {AppDispatch, useAppDispatch} from '../../store/addressStore';
+import {useTranslation} from 'react-i18next';
 
 const AddressesListScreen = ({navigation}) => {
   const paddingBottom = useScreenBottomDistance();
   const dispatch: AppDispatch = useAppDispatch();
+  const {t} = useTranslation();
 
   const addressListState = useSelector((state: RootState) => state.addressList);
 
@@ -42,7 +44,7 @@ const AddressesListScreen = ({navigation}) => {
   return (
     <View style={[styles.container, containerStyle]}>
       <View>
-        <Text style={styles.title}>Kayıtlı Adresler</Text>
+        <Text style={styles.title}>{t('saved_addresses')}</Text>
         {addressListState.addressList.length > 0 ? (
           <FlatList
             contentContainerStyle={styles.addressesList}
@@ -60,12 +62,10 @@ const AddressesListScreen = ({navigation}) => {
             )}
           />
         ) : (
-          <Text style={styles.emptyStateText}>
-            Henüz kayıtlı bir adresiniz bulunamamaktadır.
-          </Text>
+          <Text style={styles.emptyStateText}>{t('no_addresses_yet')}</Text>
         )}
       </View>
-      <Button label="Yeni Adres Ekle" onPress={onButtonPress} />
+      <Button label={t('add_new_address')} onPress={onButtonPress} />
     </View>
   );
 };

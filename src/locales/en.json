@@ -1,3 +1,15 @@
 {
-  "my_addresses": "My Addresses"
+  "my_addresses": "My Addresses",
+  "saved_addresses": "Saved Addresses",
+  "add_new_address": "Add New Address",
+  "no_addresses_yet": "You don't have any saved addresses yet.",
+  "address_detail": "Address detail",
+  "city": "City",
+  "address_title": "Address title (Home, work, etc.)",
+  "save": "Save",
+  "successfully_saved": "Your address is saved successfully!",
+  "select_item": "Select item",
+  "title_placeholder": "Home",
+  "detail_placeholder": "Param office",
+  "address_info": "Address Information"
 }

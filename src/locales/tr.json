@@ -1,3 +1,15 @@
 {
-  "my_addresses": "Adreslerim"
+  "my_addresses": "Adreslerim",
+  "saved_addresses": "Kayıtlı Adresler",
+  "add_new_address": "Yeni Adres Ekle",
+  "no_addresses_yet": "Henüz kayıtlı bir adresiniz bulunamamaktadır.",
+  "address_detail": "Adres detayı",
+  "city": "İl",
+  "address_title": "Adres başlığı (Ev, işyeri vs.)",
+  "save": "Kaydet",
+  "successfully_saved": "Adresin başarıyla kaydedildi!",
+  "select_item": "Seçim yapın",
+  "title_placeholder": "Ev",
+  "detail_placeholder": "Param ofis",
+  "address_info": "Adres Bilgilerin"
 }

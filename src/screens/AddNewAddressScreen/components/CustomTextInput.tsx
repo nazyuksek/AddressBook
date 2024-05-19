@@ -3,16 +3,17 @@ import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
 import {scaleHeight, scaleWidth} from '../../../utils/DimensionEditor';
 
 type CustomTextInputProps = {
+  title: string;
   defaultValue: string;
   value: string;
   onChange: (val: string) => void;
 };
 
 const CustomTextInput: React.FC<CustomTextInputProps> = props => {
-  const {defaultValue, value, onChange} = props;
+  const {title, defaultValue, value, onChange} = props;
   return (
     <View style={styles.inputAndLabel}>
-      <Text style={styles.inputLabel}>Adres detayı</Text>
+      <Text style={styles.inputLabel}>{title}</Text>
       <TextInput
         style={styles.textInput}
         defaultValue={defaultValue}

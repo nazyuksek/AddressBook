@@ -1,10 +1,6 @@
-import {
-  DefaultTheme,
-  NavigationContainer,
-  useNavigationContainerRef,
-} from '@react-navigation/native';
-import React, {useEffect, useRef} from 'react';
-import Header from '../components/Header';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import React from 'react';
+import Header from '../components/Header/Header';
 import NavigationStack from './NavigationStack';
 
 const RootNavigation = () => {
