@@ -16,14 +16,12 @@ import {
   SCREEN_WIDTH,
 } from '../../utils/DimensionEditor';
 import {useNavigation} from '@react-navigation/native';
-import i18next from 'i18next';
 import {useTranslation} from 'react-i18next';
-import {useDispatch, useSelector} from 'react-redux';
-import {LanguageTag} from '../../types/types';
-import {changeLanguage} from '../../store/reducers/languageSlice';
-import {RootState} from '../../store/reducers/rootReducer';
 import LanguageSelection from './components/LanguageSelection';
 
+/**
+ * @returns {React.ReactElement} A custom header for navigation.
+ */
 const Header = () => {
   const navigation = useNavigation();
   const {t} = useTranslation();

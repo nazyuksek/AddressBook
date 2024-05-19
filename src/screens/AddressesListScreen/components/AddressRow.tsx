@@ -5,12 +5,33 @@ import Location from '../../../assets/svgs/Location';
 import {scaleHeight, scaleWidth} from '../../../utils/DimensionEditor';
 
 type AddressRowProps = {
+  /**
+   * Title of the address
+   */
   title: string;
+  /**
+   * Detail of the address
+   */
   detail: string;
+  /**
+   * Location of the address
+   */
   location: string;
-  index: number;
+  /**
+   * An optional prop used for rendering component in a list.
+   * Given to key prop of the View component
+   */
+  index?: number;
 };
 
+/**
+ *
+ * @param {string} title
+ * @param {string} detail
+ * @param {string} location
+ * @param {number} index
+ * @returns {React.ReactElement} An address row card.
+ */
 const AddressRow: React.FC<AddressRowProps> = props => {
   const {title, detail, location, index} = props;
 

@@ -7,9 +7,17 @@ import {RootState} from '../../../store/reducers/rootReducer';
 import {scaleHeight} from '../../../utils/DimensionEditor';
 
 type LanguageSelectionProps = {
-  style: ViewStyle;
+  /**
+   * Optional prop for changing the style of component.
+   */
+  style?: ViewStyle;
 };
 
+/**
+ *
+ * @param {ViewStyle} style Optional prop for changing the style of component.
+ * @returns {React.ReactElement} A language selection component with 2 available languages: English and Turkish.
+ */
 const LanguageSelection: React.FC<LanguageSelectionProps> = props => {
   const {style} = props;
   const dispatch = useDispatch();

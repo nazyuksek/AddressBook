@@ -3,12 +3,33 @@ import {Platform, StyleSheet, Text, TextInput, View} from 'react-native';
 import {scaleHeight, scaleWidth} from '../../../utils/DimensionEditor';
 
 type CustomTextInputProps = {
+  /**
+   * The title shown on the upper left side of text input
+   */
   title: string;
+  /**
+   * Default value to be shown before user input
+   */
   defaultValue: string;
+  /**
+   * Value of user input
+   */
   value: string;
+  /**
+   * Gets triggered when user interacts with the value
+   * @param val New value after user interaction, updated everytime user updates the input
+   */
   onChange: (val: string) => void;
 };
 
+/**
+ *
+ * @param {string} title
+ * @param {string} defaultValue
+ * @param {string} value
+ * @param {(val: string) => void} onChange
+ * @returns {React.ReactElement} A text input with custom styling.
+ */
 const CustomTextInput: React.FC<CustomTextInputProps> = props => {
   const {title, defaultValue, value, onChange} = props;
   return (

@@ -1,11 +1,16 @@
 import {Address} from '../types/types';
 
+/** 
+Returns the list of addresses.
+@return {Promise<Address[] | null>} List of addresses
+*/
 export const getAddresses = async (): Promise<Address[] | null> => {
   try {
     const response = await fetch(
       'https://664500d2b8925626f890baef.mockapi.io/api/paramtech/addresslist',
       {
         method: 'GET',
+        headers: {'content-type': 'application/json'},
       },
     );
     const addressList = await response.json();
@@ -16,6 +21,11 @@ export const getAddresses = async (): Promise<Address[] | null> => {
   }
 };
 
+/** 
+Adds an address to address list, returns the address list.
+@param {Address} Address to be added
+@return {Promise<Address[] | null>} List of addresses
+*/
 export const addNewAddress = async (
   address: Address,
 ): Promise<Address[] | null> => {
@@ -23,10 +33,7 @@ export const addNewAddress = async (
     const response = await fetch(
       'https://664500d2b8925626f890baef.mockapi.io/api/paramtech/addresslist',
       {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        headers: {'content-type': 'application/json'},
         method: 'POST',
         body: JSON.stringify(address),
       },
